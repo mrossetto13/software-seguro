@@ -1,9 +1,5 @@
 # Puertos fundamentales y sus servicios por defecto
 
-Referencia rápida de los puertos más comunes, qué servicio corre en cada uno y qué tener en cuenta desde el punto de vista de la seguridad.
-
----
-
 ## Lista de puertos
 
 ### Puerto 20: FTP (datos)
@@ -83,4 +79,4 @@ Referencia rápida de los puertos más comunes, qué servicio corre en cada uno 
 | 443 | TCP/UDP | HTTPS | Sí |
 | 3306 | TCP | MySQL / MariaDB | Opcional (TLS) |
 
-> **Nota:** son los puertos *por defecto* según la convención de la IANA. Cualquier servicio puede configurarse para correr en otro puerto, así que un puerto abierto no garantiza qué servicio hay detrás. Por eso en un escaneo (por ejemplo con `nmap -sV`) conviene identificar el servicio real por su banner y no solo por el número.
+> **Nota:** Estos puertos y sus usos son *por defecto* según la convención de la IANA. Cualquier servicio puede configurarse para correr en otro puerto, así que un puerto abierto no garantiza qué servicio hay detrás.
