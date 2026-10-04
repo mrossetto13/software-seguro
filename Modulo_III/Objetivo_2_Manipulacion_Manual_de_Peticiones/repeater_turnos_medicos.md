@@ -30,7 +30,6 @@ Location: /login?next=%2Fapi%2F1%2Fappointments%2F
 Set-Cookie: session=<nuevo token vacío/reseteado>; HttpOnly; Path=/
 ```
 
-**Análisis:** el servidor detectó que el token de sesión ya no era válido (probablemente está firmado, y alterar un carácter invalida la firma) y respondió con un redirect al login en lugar de devolver los turnos. Además reseteó la cookie `session` en la respuesta. Esto indica que la aplicación valida correctamente la integridad de la sesión y no es posible acceder a los datos manipulando el valor de la cookie "a ciegas".
 
 ## Prueba B — Modificar el User-Agent
 
@@ -51,11 +50,4 @@ Report-To: {"group":"cf-nel", ...}
 Nel: {"report_to":"cf-nel", ...}
 ```
 
-**Análisis:** a diferencia de la Prueba A, este bloqueo no parece provenir de la lógica de la aplicación sino de **Cloudflare**, que se interpone delante del servidor (se observan las cabeceras `cf-nel` y `Report-To`, características de Cloudflare). El User-Agent modificado no respeta el formato típico de un navegador real, y el WAF lo identificó como sospechoso, devolviendo 403 antes de que la petición llegara a la aplicación.
 
-## Conclusiones
-
-- El Repeater permite reenviar y editar libremente una petición ya capturada, sin pasar de nuevo por el flujo normal del navegador, lo cual es clave para probar manualmente el manejo de sesión, parámetros y headers.
-- **Cookie `session` alterada →** la aplicación responde correctamente invalidando el acceso (302 a login), lo que sugiere un buen manejo de integridad de sesión.
-- **User-Agent alterado →** el bloqueo (403) parece originarse en Cloudflare (WAF), no en la aplicación en sí, lo que indica una capa adicional de protección delante del servidor.
-- Ambas pruebas muestran que modificar manualmente una petición en el Repeater es una forma efectiva de validar los controles de seguridad de una aplicación sin necesidad de repetir todo el flujo desde el navegador.
