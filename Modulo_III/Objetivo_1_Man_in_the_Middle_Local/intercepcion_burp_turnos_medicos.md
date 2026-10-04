@@ -52,23 +52,3 @@ Al hacer Forward nuevamente, la página cargó y se mostraron los turnos del usu
 4. `GET /` → ya con sesión, devuelve la página "Mis Turnos".
 5. `GET /api/1/appointments/` → la página consulta la API y obtiene los turnos en JSON.
 
-## Endpoints de infraestructura (Cloudflare)
-
-Estas peticiones aparecen en el historial pero **no pertenecen a la lógica de la aplicación**: las genera Cloudflare, que protege el sitio.
-
-| Método | Endpoint | Función |
-|--------|----------|---------|
-| GET | `static.cloudflareinsights.com/beacon.min.js` | Script de analítica y métricas de Cloudflare. |
-| POST | `/cdn-cgi/rum?` | Envío de telemetría de rendimiento del navegador (Real User Monitoring). |
-| POST | `/cdn-cgi/challenge-platform/...` | Verificación anti-bot de Cloudflare (relacionada con la cookie `cf_clearance`). |
-
-## Observaciones
-
-- Las credenciales viajan en el body de un `POST`, y no en la URL, lo cual evita que queden registradas en historiales o logs de acceso.
-- La sesión se maneja con la cookie `session`, emitida por el servidor tras el `POST /login`.
-- El endpoint `/api/1/appointments/` no recibe ningún identificador de usuario: el servidor determina de quién son los turnos a partir de la cookie de sesión.
-- La API está versionada en la ruta (`/api/1/`).
-
-## Conclusión
-
-Con Burp Suite como proxy de intercepción fue posible detener la petición `POST /login` antes de que llegara al servidor, inspeccionar sus cabeceras y su body, y luego dejarla continuar para observar cómo se crea la sesión y cómo la aplicación obtiene los turnos del usuario mediante `GET /api/1/appointments/`.
