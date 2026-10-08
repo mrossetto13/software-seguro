@@ -4,21 +4,15 @@
 
 ### Confidencialidad (Confidentiality)
 
-Que la información solo la vea quien tiene derecho a verla. Un dato confidencial que llega a ojos equivocados ya no se puede "des-filtrar": el daño es permanente. Se protege con autenticación, control de acceso y cifrado.
-
-*Analogía:* una carta cerrada que solo puede abrir su destinatario.
+Que la información solo la vea quien tiene derecho a verla. Un dato confidencial filtrado puede generar un daño es permanente. Se protege con autenticación, control de acceso y cifrado.
 
 ### Integridad (Integrity)
 
-Que la información sea correcta, completa y no haya sido alterada sin autorización, ya sea por un atacante o por un error. No importa solo que el dato exista, sino que sea confiable. Se protege con controles de acceso de escritura, validación de entradas, firmas digitales, hashes y registros de auditoría.
-
-*Analogía:* un cheque cuyo monto nadie puede cambiar después de firmado.
+Que la información sea correcta, completa y no haya sido alterada sin autorización, ya sea por un atacante o por un error. Para esto, no importa solo que el dato exista, sino que sea confiable. Se protege con controles de acceso de escritura, validación de entradas, firmas digitales, hashes y registros de auditoría.
 
 ### Disponibilidad (Availability)
 
 Que los sistemas y los datos estén accesibles cuando los usuarios legítimos los necesitan. Un sistema seguro pero caído no sirve. Se protege con redundancia, balanceo de carga, límites de tasa (rate limiting), backups y planes de recuperación.
-
-*Analogía:* un cajero automático que siempre funciona y tiene efectivo cuando lo necesitás.
 
 ## 2. Un ataque por cada pilar
 
@@ -78,13 +72,3 @@ Si el banco no valida un token anti-CSRF, ejecuta la transferencia con la sesió
 | **Integridad** | ¿El dato es fiable y no fue alterado? | CSRF | Se **modifica** sin consentimiento | Tokens anti-CSRF, `SameSite` |
 | **Disponibilidad** | ¿Puedo acceder cuando lo necesito? | DDoS / HTTP flood | Se vuelve **inaccesible** | Rate limiting, WAF/CDN, redundancia |
 
-## 4. Conclusión
-
-La tríada CIA sirve como brújula para evaluar cualquier riesgo: ante una vulnerabilidad conviene preguntarse qué pilar rompe, y diseñar controles para cada uno. En la práctica los pilares compiten entre sí (más controles de acceso pueden afectar la usabilidad, y más redundancia amplía la superficie de exposición), por lo que la seguridad consiste en equilibrarlos según el valor de cada activo.
-
-## Referencias
-
-- [CWE-639: Authorization Bypass Through User-Controlled Key](https://cwe.mitre.org/data/definitions/639.html)
-- [CWE-352: Cross-Site Request Forgery (CSRF)](https://cwe.mitre.org/data/definitions/352.html)
-- [OWASP, Cross-Site Request Forgery Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html)
-- [OWASP, Denial of Service Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Denial_of_Service_Cheat_Sheet.html)
