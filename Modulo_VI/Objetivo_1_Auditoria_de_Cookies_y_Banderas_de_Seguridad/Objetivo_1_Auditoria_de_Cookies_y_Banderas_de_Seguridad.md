@@ -77,5 +77,3 @@ Pasos en el navegador (ejemplo en Chrome):
 | Sitio 3 | | ☐ Sí / ☐ No | ☐ Sí / ☐ No | | |
 
 **Criterio de evaluación:** una cookie de sesión correctamente protegida debe tener **las tres banderas**: `HttpOnly` + `Secure` + `SameSite=Lax` o `Strict`.
-
-> **Nota práctica:** los sitios grandes (bancos, Google, Microsoft) casi siempre las implementan bien; los sitios pequeños, foros antiguos o sistemas administrativos suelen fallar en `Secure` o `SameSite`. Si se encuentra una cookie sin banderas, anotar el nombre exacto y el valor de las columnas — es la evidencia para el informe.
