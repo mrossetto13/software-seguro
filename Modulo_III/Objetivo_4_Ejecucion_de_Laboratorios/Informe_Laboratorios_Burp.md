@@ -1,8 +1,5 @@
 # Informe de Laboratorios — Pruebas de Seguridad con Burp Suite
 
-**Autor:** Martín Rossetto
-**Herramienta principal:** Burp Suite (Intruder / Repeater)
-
 ## Índice
 
 1. Laboratorio "Apagar la IA"
@@ -34,10 +31,6 @@ Al leer el enunciado se observó que el hash mostrado al comienzo no es un valor
 
 Se obtuvo el código de aprobación correcto y se completó el laboratorio.
 
-### 1.5 Conclusión
-
-El ejercicio mostró cómo una pista aparentemente decorativa (el hash inicial) en realidad acota el espacio de búsqueda de un ataque de fuerza bruta, y cómo combinar un diccionario personalizado con Burp Intruder permite automatizar la prueba de múltiples candidatos de forma eficiente en lugar de probarlos uno por uno.
-
 ---
 
 ## 2. Laboratorio "Votación"
@@ -62,17 +55,13 @@ Tras analizar el enunciado, se realizó una primera votación manual y se observ
 
 Se logró superar en votos a Harvard y se completó el laboratorio.
 
-### 2.5 Conclusión
-
-El caso evidenció una falla de control de sesión: el sistema no validaba de forma robusta la identidad del votante más allá de un valor de cookie manipulable por el cliente, lo que permitió automatizar votos repetidos. Es un ejemplo de control de acceso insuficiente para una acción que debería limitarse a una vez por usuario real.
-
 ---
 
 ## 3. Laboratorio "Votación (nueva versión)"
 
 ### 3.1 Objetivo
 
-Repetir el objetivo del laboratorio anterior (que los votos de la UTN superen a los de Harvard), sobre una versión del sistema con una protección adicional.
+Repetir el objetivo del laboratorio anterior (que los votos de la UTN superen a los de Harvard, sobre una versión del sistema con una protección adicional.
 
 ### 3.2 Análisis previo
 
@@ -88,10 +77,6 @@ Se realizó una primera votación y se analizó el resultado. Dado que el enunci
 ### 3.4 Resultado
 
 Se logró superar en votos a Harvard y se completó el laboratorio.
-
-### 3.5 Conclusión
-
-Este laboratorio es un ejemplo clásico de **IP spoofing por confianza indebida en encabezados HTTP**: el servidor confiaba en el valor del encabezado `X-Forwarded-For`, que es un dato enviado por el cliente y por lo tanto no confiable sin validación adicional (por ejemplo, verificarlo únicamente cuando proviene de un proxy conocido y de confianza). Confiar en datos controlados por el cliente para decisiones de seguridad es una debilidad frecuente en aplicaciones web (relacionada con CWE-290, autenticación/autorización basada en una propiedad falsificable).
 
 ---
 
@@ -116,13 +101,3 @@ El enunciado incluía un video en el que se mostraba una secuencia de botones pr
 ### 4.4 Resultado
 
 Se identificó la combinación correcta mediante fuerza bruta acotada y se completó el laboratorio.
-
-### 4.5 Conclusión
-
-El ejercicio combina ingeniería inversa de una pista visual (el video) con un ataque de fuerza bruta acotado: en vez de probar las 10.000 combinaciones posibles de cuatro dígitos sin información adicional, el patrón observado permitió construir un diccionario mucho más pequeño y dirigido, reduciendo drásticamente el tiempo de ataque.
-
----
-
-## Conclusión general
-
-Los cuatro laboratorios comparten una misma lógica de trabajo con Burp Suite: interceptar y entender la petición real que envía la aplicación (Proxy/Repeater), identificar qué controla el servidor y qué puede manipularse desde el cliente, y automatizar la prueba de múltiples valores con Intruder usando diccionarios propios en lugar de listas genéricas. Los casos de "Votación" muestran además cómo controles de sesión o de origen mal implementados (cookies predecibles, confianza en `X-Forwarded-For`) pueden eludirse sin necesidad de vulnerabilidades de código complejas, simplemente manipulando los datos que el cliente controla.
