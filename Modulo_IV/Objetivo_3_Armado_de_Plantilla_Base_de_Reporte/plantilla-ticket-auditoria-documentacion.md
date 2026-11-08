@@ -59,12 +59,11 @@ La plantilla organiza los campos en **5 bloques lógicos**, que siguen el ciclo 
 ┌─────────────────────────────────────────────────────┐
 │  Título + Criticidad                                │  ← ¿Qué es y qué tan grave? (5 segundos)
 ├─────────────────────────────────────────────────────┤
+│  Resumen Ejecutivo                                  │  ← ¿Qué significa para el negocio? (2 minutos)
+├─────────────────────────────────────────────────────┤
 │  Endpoint + Caso de Uso                             │  ← ¿Dónde está y qué negocio afecta? (30 segundos)
 ├─────────────────────────────────────────────────────┤
 │  ASVS + CVSS                                        │  ← ¿Cómo se clasifica formalmente? (1 minuto)
-├─────────────────────────────────────────────────────┤
-│  Resumen Ejecutivo                                  │  ← ¿Qué significa para el negocio? (2 minutos)
-├─────────────────────────────────────────────────────┤
 │  Descripción Detallada                              │  ← ¿Cuál es el problema técnico? (5 minutos)
 ├─────────────────────────────────────────────────────┤
 │  PoC + Reproducción                                 │  ← ¿Cómo lo verifico yo mismo?
@@ -109,18 +108,3 @@ Por eso la plantilla exige:
 1. **Endpoint afectado** — la única "ubicación" que el auditor puede conocer con certeza.
 2. **PoC con pasos de reproducción** — la única prueba válida en caja negra es la reproducible desde el exterior.
 3. **ASVS como referencia** — el estándar permite evaluar si un control *existe y funciona* observando el comportamiento, sin leer el código.
-
----
-
-## 6. Resumen
-
-| Sin plantilla | Con esta plantilla |
-| --- | --- |
-| Hallazgos en formatos distintos según el auditor | Estructura única y predecible |
-| Severidad decidida "a ojo" | CVSS v3.1 objetivo y reproducible |
-| "Arreglen la seguridad" | Controles ASVS específicos + remediación concreta |
-| Imposible verificar si se corrigió | PoC con pasos de reproducción |
-| Información dispersa en mails y chats | Ticket trazable, con endpoint y caso de uso asociado |
-| Sin métricas | Campos tipados → métricas y tendencias automáticas |
-
-La plantilla convierte un hallazgo técnico en un **artefacto de comunicación completo**: priorizable para el negocio, accionable para el desarrollo y verificable para la auditoría.
