@@ -4,10 +4,6 @@
 
 Obtener acceso a la cuenta `admin` del panel de administración de NómiNet, sin conocer su contraseña, y conseguir el código de resolución del laboratorio.
 
-## Análisis previo
-
-NómiNet es el panel interno de RRHH de una empresa. Para entrar al panel de administración hace falta loguearse como `admin`, cuya contraseña no se conoce de antemano. Se decidió inspeccionar el comportamiento de la aplicación en el navegador para buscar información filtrada por error antes de intentar cualquier ataque de fuerza bruta sobre el login.
-
 ## Metodología
 
 ### 1. Reconocimiento de endpoints
@@ -101,10 +97,3 @@ Se obtuvo acceso completo a la cuenta `admin` del panel de RRHH de NómiNet, exp
 - Herramientas de desarrollador del navegador (consola, pestaña Network, Ver código fuente).
 - Hashcat (modo `1800` — sha512crypt).
 - Wordlist `rockyou.txt` (incluida en Kali Linux).
-
-## Clasificación
-
-| Campo | Valor |
-|---|---|
-| **CWE** | CWE-200 (Exposición de información), CWE-521 (Requisitos de contraseña débiles) |
-| **OWASP Top 10** | A05:2021 - Security Misconfiguration / A07:2021 - Identification and Authentication Failures |
