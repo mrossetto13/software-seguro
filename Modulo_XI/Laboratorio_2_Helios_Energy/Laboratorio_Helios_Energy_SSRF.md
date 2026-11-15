@@ -4,10 +4,6 @@
 
 Encontrar la clave de la estación principal que permite controlar toda la plataforma, a partir de la funcionalidad de "diagnóstico remoto de dispositivos" del portal público de Helios Energy.
 
-## Análisis previo
-
-El portal público ofrece una función en la que el operador pega la URL de gestión de un inversor/medidor (ej. `http://inversor-5.red-planta.local/status`) y **el servidor** la consulta por su cuenta para mostrar el estado del equipo. Esto es un patrón clásico de **SSRF (Server-Side Request Forgery)**: el atacante no accede directamente a esa URL, sino que logra que el propio servidor la consulte en su nombre — lo cual es peligroso si el servidor puede alcanzar recursos internos que no son accesibles desde afuera.
-
 ## Descubrimiento 1 — `robots.txt` del portal público
 
 Se solicitó directamente `GET /robots.txt` del sitio público:
