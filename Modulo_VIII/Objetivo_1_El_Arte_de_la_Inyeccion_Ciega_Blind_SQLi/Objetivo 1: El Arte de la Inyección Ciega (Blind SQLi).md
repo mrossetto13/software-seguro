@@ -185,16 +185,3 @@ Aunque la aplicación solo diga "Cargando...", el atacante termina con el nombre
 2. **Mínimo privilegio** en el usuario de BD (limita el daño, no la extracción).
 3. **Rate limiting y detección de anomalías**: cientos de peticiones idénticas con un solo carácter cambiado son un patrón inconfundible.
 4. **WAF** como capa complementaria (no sustituye a los prepared statements).
-
----
-
-## 7. Resumen
-
-| Aspecto | Boolean-Based | Time-Based |
-|---------|--------------|------------|
-| Pregunta al oráculo | "¿La página cambia?" | "¿La respuesta tarda?" |
-| Señal de "verdadero" | Contenido/estado distinto | Latencia ≈ al retardo inyectado |
-| Velocidad | Lenta | Muy lenta |
-| Requisito | 2 respuestas distinguibles | Funciones de retardo disponibles |
-
-> **Conclusión:** la "ceguera" de la aplicación no la protege: solo cambia el canal de exfiltración. Mientras exista **cualquier diferencia observable** entre dos estados del servidor (contenido, código, longitud o tiempo), el atacante puede construir un oráculo de sí/no y automatizar la extracción de toda la base de datos, carácter a carácter. La defensa no es ocultar errores sino **eliminar la inyección** con consultas parametrizadas.
