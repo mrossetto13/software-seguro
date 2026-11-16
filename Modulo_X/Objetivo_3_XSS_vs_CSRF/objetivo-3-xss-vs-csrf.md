@@ -119,16 +119,3 @@ fetch("/api/transferir", {
 ```
 
 El XSS **lee el token anti-CSRF** (está en el DOM), lo incluye en la petición y además **lee la respuesta** — cosas que el CSRF puro no puede hacer. El XSS es estrictamente más poderoso, pero requiere un punto de inyección de código; el CSRF solo requiere que la víctima tenga sesión y visite el sitio equivocado.
-
----
-
-## 5. Resumen final
-
-| | XSS | CSRF |
-|--|-----|------|
-| **En una frase** | "Ejecuto mi código en tu navegador, en el contexto del sitio" | "Tu navegador dispara una petición que tú nunca autorizaste" |
-| **Arma** | JavaScript inyectado | La cookie de sesión automática del navegador |
-| **Alcance** | Control total del contexto (leer + escribir) | Una acción puntual (solo escribir, sin leer) |
-| **Defensa clave** | Output encoding + CSP | SameSite + token anti-CSRF + verificación de origen |
-
-> **Conclusión:** ambos ataques usan al navegador de la víctima como campo de batalla, pero con mecánicas opuestas: el **XSS ejecuta código del atacante dentro del sitio** (violando la separación dato/código), mientras que el **CSRF dispara peticiones desde fuera sin ejecutar nada** (explotando la confianza del servidor en las cookies). Por eso sus defensas son casi opuestas también: contra XSS se codifica la salida y se restringe la ejecución (CSP); contra CSRF se verifica el origen y se controla cuándo viajan las cookies (SameSite, tokens). Y la relación más peligrosa: **un XSS habilita CSRF** (puede leer el token), pero un CSRF nunca da el control que da un XSS.
