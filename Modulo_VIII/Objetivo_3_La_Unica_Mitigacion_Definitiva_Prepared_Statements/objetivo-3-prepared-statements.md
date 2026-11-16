@@ -177,11 +177,3 @@ ORMs (Prisma, Hibernate, SQLAlchemy, Eloquent) usan prepared statements por deba
 | **Escapar + filtrar** | Combinación de ambos | Más capas de lo mismo: sigue habiendo código y datos en el mismo canal |
 | **Prepared Statements** | Separación estructural código/dato en el protocolo | El dato **nunca** llega al parser SQL como código. No hay nada que evadir. |
 | **Lista blanca** (para identificadores) | Validar contra valores permitidos | Complemento necesario donde los placeholders no aplican |
-
----
-
-## 6. Resumen
-
-> **Conclusión:** la inyección SQL es, en esencia, un problema de **mezcla de canales**: datos y código viajando por el mismo medio, de modo que el parser no puede distinguirlos. Las listas negras y los escapes intentan "limpiar" los datos después de mezclarlos — una batalla perdida. Los Prepared Statements resuelven el problema **en la arquitectura**: la consulta se parsea y compila *antes* de que exista el dato, y el valor entra por un canal separado del protocolo, tratado siempre como literal opaco. No hay transformación que evadir ni filtro que burlar: **el input del usuario nunca participa en la estructura de la consulta, punto.**
-
-Por eso es la única mitigación *definitiva*: no depende de adivinar qué va a enviar el atacante, sino de hacer que **sea imposible que su input cambie el significado del programa** — sin importar qué caracteres envíe.
