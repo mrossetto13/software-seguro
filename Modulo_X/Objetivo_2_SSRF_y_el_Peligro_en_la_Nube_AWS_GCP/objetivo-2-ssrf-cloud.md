@@ -156,16 +156,3 @@ Un SSRF "simple" (GET forzado) ya no basta: el atacante necesitaría controlar h
 5. **Segmentación de red**: el servidor de la app no debería poder alcanzar servicios internos que no necesita.
 6. **Mínimo privilegio en los roles IAM**: aunque el SSRF ocurra, las credenciales robadas deben dar el mínimo acceso posible.
 7. **Monitoreo**: alertar sobre peticiones a `169.254.169.254` en logs de aplicación y uso anómalo de credenciales en CloudTrail.
-
----
-
-## 7. Resumen
-
-| Elemento | Detalle |
-|----------|---------|
-| **Dirección** | `169.254.169.254` (link-local, solo accesible desde la instancia) |
-| **Qué expone** | Metadatos, user-data, y **credenciales temporales del rol IAM** |
-| **Impacto** | El atacante opera en la nube **como la instancia**: S3, bases de datos, secretos, según permisos del rol |
-| **Mitigación clave** | IMDSv2 (token vía PUT), mínimo privilegio IAM, bloqueo de IPs link-local en el fetch server-side |
-
-> **Conclusión:** el SSRF en la nube es catastrófico porque convierte al servidor en un **agente interno del atacante**: la IP `169.254.169.254` es inaccesible desde internet, pero el SSRF hace que la propia instancia la consulte y le devuelva el contenido — incluidas **credenciales IAM vivas**. Con ellas, el atacante no solo ve datos: **se convierte en la identidad de la aplicación dentro de la nube**. La defensa combina configuración (IMDSv2, permisos mínimos) y la lección de siempre: validar estrictamente toda URL controlada por el usuario, sin importar cuán inofensiva parezca la funcionalidad.
