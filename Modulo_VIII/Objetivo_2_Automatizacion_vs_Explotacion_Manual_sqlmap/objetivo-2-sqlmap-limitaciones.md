@@ -140,5 +140,3 @@ sqlmap es excelente para:
 - Cubrir superficie amplia rápidamente.
 
 Pero el pentester experimentado la usa como **acelerador**, no como sustituto del análisis: primero entiende la aplicación (flujo, filtros, contexto), y recién entonces decide si sqlmap sirve o si la explotación manual en Burp es el único camino.
-
-> **Conclusión:** sqlmap falla estrepitosamente cuando la vulnerabilidad exige **contexto** (second-order), **creatividad** (evasión de filtros a medida) o **conciencia de flujo** (tokens, estado, HMAC) — las tres cosas que, por ahora, solo aporta el criterio humano. La automatización encuentra lo obvio; la explotación manual encuentra lo que importa.
