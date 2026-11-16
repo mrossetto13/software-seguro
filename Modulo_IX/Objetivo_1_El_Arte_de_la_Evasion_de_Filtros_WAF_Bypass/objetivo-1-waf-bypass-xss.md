@@ -123,9 +123,3 @@ Es exactamente el mismo patrón de las listas negras en SQLi (Objetivo 3 de la s
 3. **Listas blancas de HTML** si se permite formato en comentarios: usar una librería de sanitización probada (DOMPurify en el cliente, sanitizadores del framework en el servidor) — nunca un filtro casero con `replace()`.
 4. **Atributos `HttpOnly` en cookies** de sesión: aunque haya XSS, el JavaScript no puede leer la cookie.
 5. **Validación de entrada como capa extra** (no como única): restringir longitud, formato y caracteres esperados.
-
----
-
-## 4. Resumen
-
-> **Conclusión:** el filtro que elimina `<script>` es inútil por tres razones: (1) existen decenas de vectores de ejecución sin esa etiqueta (atributos de evento, pseudo-protocolos, SVG); (2) un filtro de eliminación por reemplazo es recomponible (`<scr<script>ipt>`); y (3) el navegador decodifica y ejecuta *después* del filtro, con reglas que el filtro no modela. La defensa correcta no es filtrar la entrada con patrones, sino **codificar la salida contextualmente** y aplicar CSP — el mismo principio de toda la serie: los filtros adivinan, la arquitectura correcta elimina el problema.
