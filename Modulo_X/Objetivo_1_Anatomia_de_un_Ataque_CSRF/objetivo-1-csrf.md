@@ -158,9 +158,3 @@ Chrome y otros navegadores hoy aplican **`Lax` por defecto** a las cookies sin a
 | **Verificación de Origin/Referer** | Servidor | Rechazar peticiones cuyo header `Origin` no sea el dominio legítimo |
 
 El **token anti-CSRF** merece mención: el servidor incluye un valor aleatorio en cada formulario (`<input type="hidden" name="csrf" value="...">`) y lo valida al recibirlo. El sitio del atacante **no puede leerlo** (la SOP le impide leer respuestas de `banco.com`), así que su formulario oculto no puede incluirlo → el servidor rechaza la petición. Nota cómo la SOP, que era el "límite" que permitía el CSRF, aquí se convierte en el aliado: protege la *lectura* del token.
-
----
-
-## 6. Resumen
-
-> **Conclusión:** el CSRF explota una decisión de diseño del navegador: las cookies se adjuntan **automáticamente** a toda petición hacia su dominio, sin importar quién originó la petición. El atacante no rompe nada: simplemente hace que el navegador de la víctima *dispare* la petición por él, y el servidor — que solo ve credenciales válidas — la ejecuta. `SameSite=Lax/Strict` ataca la raíz: le ordena al navegador **no llevar las credenciales a peticiones cross-site**, eliminando el ingrediente esencial del ataque. Complementado con tokens anti-CSRF y verificación de `Origin`, el vector queda radicalmente mitigado.
