@@ -145,9 +145,3 @@ Nota: el atacante suele acortar/ocultar el payload (acortadores de URL, codifica
 4. **Trusted Types** (Chrome): API del navegador que obliga a que toda asignación a sinks pase por una política de sanitización.
 5. **CSP** estricta (`script-src 'self'`, sin `unsafe-inline`) para limitar el impacto.
 6. **Auditoría de fuentes y sinks**: herramientas de análisis estático (ej. semgrep) y revisión manual de todo uso de `location.*` que termine en `innerHTML`, `eval`, etc.
-
----
-
-## 6. Resumen
-
-> **Conclusión:** el DOM XSS es invisible para WAF e IPS porque **el ataque nunca cruza la red**: el payload viaja en el fragmento `#` de la URL, que el navegador no envía al servidor, y se ejecuta cuando el JavaScript legítimo de la propia página lo procesa con un sink inseguro (`innerHTML`, `eval`...). El WAF inspecciona el tráfico servidor↔cliente; el DOM XSS ocurre *después*, dentro del navegador de la víctima. Es la misma lección de toda la serie: los controles que solo miran el canal (red, peticiones) son ciegos a lo que sucede en el extremo que no controlan — y el navegador de la víctima es, para el WAF, un punto ciego total.
