@@ -78,16 +78,3 @@ No se trata de descartar los escáneres, sino de usar cada herramienta donde es 
 - **Escáneres automatizados** → primera pasada: fallas técnicas, superficie de ataque, configuraciones, dependencias vulnerables. Rápidos, baratos, repetibles.
 - **Auditoría manual** → segunda capa: lógica de negocio, autorización, flujos transaccionales, concurrencia. Requiere criterio, contexto y tiempo.
 
-> **Conclusión:** los escáneres automatizan el *conocimiento previo* (firmas de vulnerabilidades conocidas). Las fallas lógicas no tienen firma porque nacen de las reglas particulares de cada negocio — reglas que solo un humano puede comprender, cuestionar y violar. Por eso, mientras la automatización cubre el "qué puede fallar técnicamente", solo la auditoría manual responde a la pregunta más importante: **"¿qué puede fallar en la intención de este sistema?"**
-
----
-
-## 4. Resumen
-
-| Aspecto | Fallas técnicas | Fallas lógicas |
-|---------|----------------|----------------|
-| Detección | Firmas y payloads conocidos | Comprensión del dominio |
-| Respuesta del servidor | Anómala (errores, reflejos) | Normal (`200 OK`) |
-| Universalidad | Iguales en toda app | Únicas de cada negocio |
-| Estructura | Petición aislada | Secuencias de pasos |
-| Herramienta ideal | Escáner automatizado | Auditoría manual |
