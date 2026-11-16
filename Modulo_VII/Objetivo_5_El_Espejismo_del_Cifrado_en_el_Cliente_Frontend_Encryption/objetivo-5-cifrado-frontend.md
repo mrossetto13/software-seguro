@@ -133,16 +133,3 @@ El peor efecto de este diseño no es técnico sino organizacional:
 3. **El servidor nunca debe inferir seguridad del formato del mensaje.** Un body cifrado por el cliente no es más confiable que uno en claro: ambos los puede generar el atacante.
 4. **Firmar operaciones críticas del lado del servidor** (nonce, HMAC de sesión) si se quiere protección extra contra replay — pero siempre con la lógica de validación en el backend.
 5. El cifrado en el cliente solo tiene sentido para casos como **cifrado de contraseñas antes del hash del servidor** en contextos muy específicos, y aun así **nunca sustituye** TLS ni validación.
-
----
-
-## 5. Resumen
-
-| Creencia de los arquitectos | Realidad |
-|------------------------------|----------|
-| "Viaja encriptado, es imposible manipularlo" | El atacante tiene el código, las claves y los datos en claro en su propio navegador |
-| El proxy no puede leer los datos | No necesita leerlos en tránsito: cifra él mismo o manipula antes del cifrado |
-| El servidor puede confiar en el body cifrado | El servidor no puede distinguir cifrado legítimo de cifrado del atacante |
-| La protección añade seguridad | Añade complejidad y, peor, **justifica omitir validaciones del backend** |
-
-> **Conclusión:** el fallo fundamental es de arquitectura de confianza: se colocó el mecanismo de seguridad en el único entorno que el atacante controla por completo. El cifrado en el cliente puede ser, en el mejor de los casos, una capa de ofuscación; nunca un control de seguridad. La regla sigue siendo la misma de todos los objetivos anteriores: **la única zona confiable es el servidor, y toda validación crítica debe vivir ahí.**
