@@ -64,9 +64,9 @@ El backend del portal espera que el dispositivo consultado devuelva un JSON con 
 7. `GET http://metering-core:9100/internal/keys/station-key.json` → respuesta JSON con la clave buscada:
    ```json
    {
-     "flag": "7e3c9a1f05b84d62ae9f1c73d2680b4a",
+     "flag": "***********************",
      "notes": "Buen pivot! :) La clave de estacion no deberia ser alcanzable desde afuera.",
-     "provisioning_key": "7e3c9a1f05b84d62ae9f1c73d2680b4a",
+     "provisioning_key": ""***********************",",
      "station": "HELIOS-CENTRAL-01"
    }
    ```
@@ -74,10 +74,6 @@ El backend del portal espera que el dispositivo consultado devuelva un JSON con 
 ## Resultado
 
 Se obtuvo la **`provisioning_key`** de la estación `HELIOS-CENTRAL-01`:
-
-```
-7e3c9a1f05b84d62ae9f1c73d2680b4a
-```
 
 ## Causa raíz
 
