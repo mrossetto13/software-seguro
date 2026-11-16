@@ -153,15 +153,3 @@ Envolver *verificar + aplicar + marcar* en una transacción con nivel de aislami
 - **Monitoreo y alertas:** detectar ráfagas de peticiones idénticas en milisegundos — patrón inequívoco de ataque de race condition.
 - **Tests de concurrencia:** automatizar 50 peticiones paralelas en CI y verificar que el recurso se consume exactamente una vez.
 
----
-
-## 5. Resumen
-
-| Aspecto | Situación vulnerable | Solución |
-|---------|---------------------|----------|
-| Verificación | `SELECT` (check) y `UPDATE` (use) separados | Operación atómica: `UPDATE ... WHERE used = false` |
-| Concurrencia | Workers paralelos procesan sin coordinación | Locks (`FOR UPDATE`, Redis) o single-packet defense |
-| Integridad | Depende solo del código de aplicación | Constraints `UNIQUE` en la base de datos |
-| Detección | Silencioso | Alertas por ráfagas de peticiones idénticas |
-
-> **Conclusión:** la falla no es lógica sino *temporal*. Cada petición individual es "correcta"; el problema es que el intervalo entre verificar y actuar permite que múltiples peticiones pasen la misma verificación con el mismo estado obsoleto. La defensa es eliminar la ventana: hacer check y uso **atómicos**, respaldados por constraints únicos en la base de datos.
