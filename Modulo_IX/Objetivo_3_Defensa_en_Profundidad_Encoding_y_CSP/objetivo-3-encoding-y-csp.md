@@ -170,14 +170,3 @@ Ninguna capa es "infalible" por sí sola, pero juntas hacen que el ataque requie
 - El atacante tendría que encontrar un punto donde el framework *no* codifique (un `dangerouslySetInnerHTML` mal usado) **y** que la CSP permita ejecutarlo (nonce filtrado, dominio externo permitido, `unsafe-inline`).
 
 Eso convierte un XSS trivial en un hallazgo excepcional — que es exactamente lo que "mitigar definitivamente" significa en seguridad: **no confiar en una sola barrera**.
-
----
-
-## 4. Resumen
-
-| Capa | Dónde vive | Mecanismo | Rol |
-|------|-----------|-----------|-----|
-| **Output Encoding** | Código de la aplicación | Codifica el dato según el contexto de salida (HTML, atributo, JS, URL) | Impide que el dato se convierta en código |
-| **CSP** | Cabecera HTTP | Le dice al navegador qué scripts puede ejecutar la página | Red de seguridad: bloquea lo que se cuele y reporta intentos |
-
-> **Conclusión:** el Output Encoding elimina la causa (el dato nunca se interpreta como código); la CSP limita el daño si algo escapa (los scripts no autorizados no se ejecutan). Son capas **independientes y complementarias**: vencer una no basta para el atacante. Es la materialización del principio de *defensa en profundidad* — y a diferencia de los filtros de entrada de los objetivos anteriores, ambas actúan en la zona confiable: el servidor dicta la codificación y el navegador aplica la política.
